@@ -8,7 +8,7 @@ function Search() {
                 <form action="">
                     <div className="flex items-center gap-3">
                         {/* Input container */}
-                        <label className="flex items-center w-full rounded-xl bg-slate-800 px-4 py-2 border border-slate-600 focus-within:ring-2 focus-within:ring-blue-500 shadow-md transition-all duration-300">
+                        <label className="flex items-center w-full rounded-xl bg-slate-800 px-4 py-1 border border-slate-600 focus-within:ring-2 focus-within:ring-blue-500 shadow-md transition-all duration-300">
                             <input
                                 type="text"
                                 placeholder="Search"
@@ -16,7 +16,7 @@ function Search() {
                             />
                         </label>
                         <button className='flex items-center justify-center bg-gray-700 hover:bg-gray-600 rounded-full duration-300' >
-                            <FiSearch className='text-5xl p-2 hover:bg-gray-600 rounded-full duration-300' />
+                            <FiSearch className='text-4xl p-2 hover:bg-gray-600 rounded-full duration-300' />
                         </button>
                     </div>
                 </form>
