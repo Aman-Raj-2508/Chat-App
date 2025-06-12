@@ -8,7 +8,7 @@ const port = process.env.PORT || 3001;
 // middleware to parse JSON bodies
 app.use(bodyParser.json());
 
-// Routes   
+// Mount User Routes
 app.use('/api/v1', userRoutes);
 
 // Database connection
