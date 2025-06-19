@@ -1,12 +1,15 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const cors = require('cors');
 const userRoutes = require('./routes/userRoutes');
 require('dotenv').config();
 
 const app = express();
 const port = process.env.PORT || 3001;
 // middleware to parse JSON bodies
-app.use(bodyParser.json());
+app.use(express.json());
+
+app.use(cors());
 
 // Mount User Routes
 app.use('/api/v1', userRoutes);

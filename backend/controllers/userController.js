@@ -32,11 +32,14 @@ exports.signUp = async (req, res) => {
 
         if (newUser) {
             createTokenAndSaveCookie(newUser._id, res);
-            res.status(201).json({ message: 'User registered successfully', newUser });
+            res.status(201).json({
+                message: 'User registered successfully', user: {
+                    _id: newUser._id,
+                    fullname: newUser.fullname,
+                    email: newUser.email
+                }
+            });
         }
-
-
-
     } catch (error) {
         console.error('Error during sign up:', error);
         res.status(500).json({ message: 'Internal server error' });
