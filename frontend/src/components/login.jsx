@@ -23,7 +23,7 @@ function Login() {
         axios.post("http://localhost:4002/api/v1/login", userInfo).then((response) => {
             console.log("Response:", response.data);
             if (response.data) {
-                alert("Signup successful! Please login.");
+                alert("Login successfull.");
             }
             // Agar user create ho jaygea tb hum uske data ko local strorage me save karayenge taki aage use kr sake.
             localStorage.setItem("ChatApp", JSON.stringify(response.data));
@@ -73,13 +73,12 @@ function Login() {
                             type="password"
                             placeholder="Password"
                             {...register("password", {
-                                required: "Password is required",
-                                pattern: {
-                                    value: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/,
-                                    message: "Must include uppercase, lowercase, number and be 8+ chars"
-                                }
-                            })}
-                        />
+                                // required: "Password is required",
+                                // pattern: {
+                                //     value: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/,
+                                //     message: "Must include uppercase, lowercase, number and be 8+ chars"
+                                // }
+                            })} />
                     </label>
                     {errors.password && <span className="text-red-500 text-sm">{errors.password.message}</span>}
 
