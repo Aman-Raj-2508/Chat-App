@@ -1,8 +1,11 @@
 import React from 'react';
 import { useForm } from "react-hook-form";
 import axios from "axios";
+import { useAuth } from "../context/Authprovider.jsx"; // useAuth hook ko import kiya gaya hai jo context se user data ko access karega.
+import { Link } from 'react-router-dom';
 
 function Login() {
+    const [authUser, setAuthUser] = useAuth();
 
     // form validation hook se form ko handle karne ke liye useForm hook ka use kiya gaya hai.
     const {
@@ -12,7 +15,7 @@ function Login() {
     } = useForm()
 
     // onSubmit function jo form submit hone par call hoga.
-    const onSubmit = (data) => {
+    const onSubmit = async (data) => {
         const userInfo =
         {
             email: data.email,
@@ -20,13 +23,15 @@ function Login() {
         };
         // console.log("User Info:", userInfo);
 
-        axios.post("http://localhost:4002/api/v1/login", userInfo).then((response) => {
+        await axios.post("/api/v1/login", userInfo).then((response) => {
             console.log("Response:", response.data);
             if (response.data) {
                 alert("Login successfull.");
             }
             // Agar user create ho jaygea tb hum uske data ko local strorage me save karayenge taki aage use kr sake.
             localStorage.setItem("ChatApp", JSON.stringify(response.data));
+            //usAuth hook se user data ko set karte hain
+            setAuthUser(response.data);
 
         }).catch((error) => {
             if (error.response) {
@@ -84,7 +89,7 @@ function Login() {
 
                     {/* Text & Button */}
                     <div className='flex justify-between'>
-                        <p>New User? <span className='text-blue-500 underline cursor-pointer ml-1'>Signup</span></p>
+                        <p>New User? <Link to="/signup" className='text-blue-500 underline cursor-pointer ml-1'>Signup</Link></p>
                         <input
                             className='text-white bg-green-500 px-2 py-1 rounded-lg cursor-pointer'
                             type="submit"

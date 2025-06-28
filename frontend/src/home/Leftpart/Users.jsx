@@ -1,8 +1,14 @@
 import React from 'react'
 import User from './User'
 import '../../index.css' // Ensure you have the correct path to your CSS file
+import useGetAllUsers from '../../context/UseGetAllUsers';
 
 function Users() {
+
+    const [allUsers, loading] = useGetAllUsers(); // Custom hook to get all users
+    console.log("All Users:", allUsers); // Log all users to the console
+
+
     return (
         <div>
 
@@ -13,16 +19,10 @@ function Users() {
             {/* User component */}
 
             <div className=' py-2 overflow-y-auto  custom-scroll' style={{ maxHeight: "calc(82vh - 10vh)" }}>
-                <User />
-                <User />
-                <User />
-                <User />
-                <User />
-                <User />
-                <User />
-                <User />
-                <User />
-                <User />
+
+                {allUsers.map((user) => (
+                    <User key={user._id} user={user} /> // Pass each user object to the User component
+                ))}
             </div>
 
         </div>
