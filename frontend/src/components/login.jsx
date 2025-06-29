@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import axios from "axios";
 import { useAuth } from "../context/Authprovider.jsx"; // useAuth hook ko import kiya gaya hai jo context se user data ko access karega.
 import { Link } from 'react-router-dom';
+import { toast } from 'react-toastify'; // toast notification ke liye import kiya gaya hai
 
 function Login() {
     const [authUser, setAuthUser] = useAuth();
@@ -26,7 +27,9 @@ function Login() {
         await axios.post("/api/v1/login", userInfo).then((response) => {
             console.log("Response:", response.data);
             if (response.data) {
-                alert("Login successfull.");
+                // alert("Login successfull.");
+                toast.success("Login successful."); // toast notification ke through success message dikhaya ja raha hai
+
             }
             // Agar user create ho jaygea tb hum uske data ko local strorage me save karayenge taki aage use kr sake.
             localStorage.setItem("ChatApp", JSON.stringify(response.data));
@@ -35,7 +38,7 @@ function Login() {
 
         }).catch((error) => {
             if (error.response) {
-                alert("Error: " + error.response.data.message);
+                toast.error("Error: " + error.response.data.message);
             }
         });
     }

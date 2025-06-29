@@ -1,12 +1,12 @@
 import React from 'react'
 import User from './User'
 import '../../index.css' // Ensure you have the correct path to your CSS file
-import useGetAllUsers from '../../context/UseGetAllUsers';
+import useGetAllUsers from '../../context/useGetAllUsers' // Custom hook to get all users;
 
 function Users() {
 
     const [allUsers, loading] = useGetAllUsers(); // Custom hook to get all users
-    console.log("All Users:", allUsers); // Log all users to the console
+    // console.log("All Users:", allUsers); // Log all users to the console
 
 
     return (

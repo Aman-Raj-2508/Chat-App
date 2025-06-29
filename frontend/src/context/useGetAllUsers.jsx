@@ -13,9 +13,9 @@ function useGetAllUsers() {
                 const token = Cookies.get('jwt'); // Get JWT token from cookies
                 const response = await axios.get('api/v1/allusers', {
                     withCredentials: true,  // Include credentials for CORS
-                    headers: { // syntax hai
-                        Authorization: `Bearer ${token}`
-                    }
+                    // headers: { // syntax hai
+                    //     Authorization: `Bearer ${token}`
+                    // }
                 });
 
                 setAllUsers(response.data);
