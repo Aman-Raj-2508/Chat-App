@@ -16,7 +16,7 @@ const secureRoute = async (req, res, next) => {
         }
         // Attach user information to the request object
         // This allows us to access user data in subsequent middleware or route handlers
-        const user = await userModel.findById(decoded.userId).select('-password -__v'); // Exclude password and version field
+        const user = await userModel.findById(decoded.userId).select('-password -__v'); // Currently logged in user
         if (!user) {
             return res.status(404).json({ message: 'User not found' });
         }

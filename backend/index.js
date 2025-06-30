@@ -2,6 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const userRoutes = require('./routes/userRoutes');
+const messageRoutes = require('./routes/messageRoute');
 const cookieParser = require('cookie-parser');
 require('dotenv').config();
 
@@ -20,6 +21,9 @@ app.use(cookieParser());
 
 // Mount User Routes
 app.use('/api/v1', userRoutes);
+
+// Mount Message Routes
+app.use('/api/v1', messageRoutes);
 
 // Database connection
 const dbConnect = require('./config/database');
