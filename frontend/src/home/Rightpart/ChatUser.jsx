@@ -1,6 +1,11 @@
 import React from 'react'
+import useConversation from '../../zustand/useConversation'
 
 function ChatUser() {
+
+    const { selectedConversation } = useConversation();
+    // console.log(selectedConversation);
+
     return (
         <div className='flex  space-x-3 items-center justify-center p-1 bg-gray-800 rounded-lg shadow-md hover:bg-gray-700 transition-all duration-300 ease-in-out cursor-pointer mt-1 ml-1 mr-1 h-[8vh] '>
 
@@ -10,7 +15,7 @@ function ChatUser() {
                 </div>
             </div>
             <div>
-                <h1 className='text-xl font-bold text-gray-200'>Akhil</h1>
+                <h1 className='text-xl font-bold text-gray-200'>{selectedConversation?.fullname}</h1>
                 <span className='text-sm text-gray-400'>Offline</span>
             </div>
 

@@ -1,8 +1,15 @@
-import React from 'react'
+import React from 'react';
+import useConversation from '../../zustand/useConversation.js';
+
 
 function User({ user }) {
+
+    const { selectedConversation, setselectedConversation } = useConversation();
+
+    const isSelected = selectedConversation?._id === user._id;
     return (
-        <div>
+        <div className={`hover:bg-slate-600 duration-300
+        ${isSelected ? 'bg-slate-700' : ''} rounded-md`} onClick={() => setselectedConversation(user)}>
 
             {/* Avatar Online and Offline */}
             <div className='flex space-x-4 px-8 py-3 hover:bg-slate-700 transition-all duration-300 ease-in-out cursor-pointer items-center'>

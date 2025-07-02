@@ -6,6 +6,7 @@ import Login from './components/login'
 import { useAuth } from './context/Authprovider.jsx'
 import { Routes, Route, Navigate } from 'react-router-dom'
 import { ToastContainer, toast } from 'react-toastify';
+import Loading from './components/Loading.jsx'
 
 function App() {
   const [authUser, setAuthUser] = useAuth();
