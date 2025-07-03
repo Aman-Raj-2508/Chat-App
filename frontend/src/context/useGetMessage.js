@@ -16,9 +16,9 @@ function useGetMessage() {
 
                 try {
                     const res = await axios.get(`api/v1/get/${selectedConversation._id}`, { //selected coversation ka id hi receiver hai kyun ki jisko select kr rhe hn usi ko toh message krna hai
-                        headers: {
-                            'Authorization': `Bearer ${localStorage.getItem('token')}`
-                        }
+                        // headers: {
+                        //     'Authorization': `Bearer ${localStorage.getItem('token')}`
+                        // }
                     });
 
                     if (!res.status === 200) {
