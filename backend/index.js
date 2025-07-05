@@ -1,40 +1,38 @@
 const express = require('express');
-const bodyParser = require('body-parser');
-const cors = require('cors');
-const userRoutes = require('./routes/userRoutes');
-const messageRoutes = require('./routes/messageRoute');
-const cookieParser = require('cookie-parser');
+const path = require('path');
+const fs = require('fs');
+const http = require('http');
 
-const { app, server } = require('./sokcetIO/server'); // Import the app from socketIO server
+const { Server } = require('socket.io');
 
-require('dotenv').config();
+const app = express();
+const server = http.createServer(app);
 
-const port = process.env.PORT || 3001;
-// middleware to parse JSON bodies
-app.use(express.json());
-
-app.use(cors({
-    origin: 'http://localhost:3000',
-    credentials: true
-}));
-
-// Middleware to parse cookies
-app.use(cookieParser());
-
-// Mount User Routes
-app.use('/api/v1', userRoutes);
-
-// Mount Message Routes
-app.use('/api/v1', messageRoutes);
-
-// Database connection
-const dbConnect = require('./config/database');
-dbConnect();
-
-app.get('/', (req, res) => {
-    res.send('Welcome to the backend server!');
+const io = new Server(server, {
+    cors: {
+        origin: 'http://localhost:3000',
+        methods: ['GET', 'POST'],
+        credentials: true,
+    }
 });
 
-server.listen(port, () => {
-    console.log(`Server is running on http://localhost:${port}`);
+const dirPath = path.resolve();
+
+app.use(express.static(path.join(dirPath, 'frontend', 'dist')));
+
+app.get('*', (req, res) => {
+    const indexFile = path.join(dirPath, 'frontend', 'dist', 'index.html');
+    if (fs.existsSync(indexFile)) {
+        res.sendFile(indexFile);
+    } else {
+        res.status(500).send("index.html not found — did you run `npm run build`?");
+    }
+});
+
+io.on('connection', (socket) => {
+    console.log('Socket connected:', socket.id);
+});
+
+server.listen(3001, () => {
+    console.log('Server is running at http://localhost:3001');
 });

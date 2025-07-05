@@ -1,5 +1,7 @@
 const conversationModel = require('../models/conversationModel');
 const messageModel = require('../models/messageModel');
+const { getReceiverSocketId } = require('../sokcetIO/server'); // Import the function to get receiver's socket ID
+const { io } = require('../sokcetIO/server'); // Import the socket.io instance
 
 exports.sendMessage = async (req, res) => {
     try {
@@ -38,6 +40,13 @@ exports.sendMessage = async (req, res) => {
             conversation.save()
         ]);
 
+        // Emit the message to the receiver using socket.io
+        const receiverSocketId = getReceiverSocketId(receiverId);
+
+        if (receiverSocketId) {
+            io.to(receiverSocketId).emit("newMessage", newMessage);
+        }
+
         res.status(200).json({
             message: "Message sent successfully",
             newMessage
@@ -54,7 +63,7 @@ exports.getMessages = async (req, res) => {
     try {
         const chatuserId = req.params.id; // reciever ID hi hai
         const senderId = req.user._id; // current loggedIn user
-        
+
         // Find the conversation between the sender and receiver
         const conversation = await conversationModel.findOne({
             members: { $all: [senderId, chatuserId] } // Check if both sender and receiver are in the conversation

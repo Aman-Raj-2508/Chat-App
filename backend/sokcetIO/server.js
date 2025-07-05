@@ -8,10 +8,17 @@ const server = http.createServer(app);
 
 const io = new Server(server, {
     cors: {
-        origin: "http://localhost:3001", // Replace with your frontend URL
+        origin: "http://localhost:3001",
         methods: ["GET", "POST"],
+        credentials: true
     }
 });
+
+
+//realtime message code goes here
+const getReceiverSocketId = (receiverId) => {
+    return users[receiverId];
+}
 
 const users = {
 
@@ -45,4 +52,5 @@ module.exports = {
     io,
     server,
     app,
+    getReceiverSocketId,
 };
