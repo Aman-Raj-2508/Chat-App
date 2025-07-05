@@ -1,0 +1,19 @@
+-----------------------------------Message Model------------------------------------
+
+Ankush(senderId) => Hi Akhil
+Akhil(receiverId) => Hi Ankush
+
+senderId = 123  
+receiverId = 456
+Message = "Hi Akhil"
+
+
+senderId = 456 
+receiverId = 123
+Message = "Hi Ankush"
+
+
+Coversation Model
+
+members = [senderId , receiverId ]
+messages = [messageId]

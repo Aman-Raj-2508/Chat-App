@@ -4,9 +4,11 @@ const cors = require('cors');
 const userRoutes = require('./routes/userRoutes');
 const messageRoutes = require('./routes/messageRoute');
 const cookieParser = require('cookie-parser');
+
+const { app, server } = require('./sokcetIO/server'); // Import the app from socketIO server
+
 require('dotenv').config();
 
-const app = express();
 const port = process.env.PORT || 3001;
 // middleware to parse JSON bodies
 app.use(express.json());
@@ -33,6 +35,6 @@ app.get('/', (req, res) => {
     res.send('Welcome to the backend server!');
 });
 
-app.listen(port, () => {
+server.listen(port, () => {
     console.log(`Server is running on http://localhost:${port}`);
 });
